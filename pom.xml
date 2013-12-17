@@ -4,7 +4,7 @@
   xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   
-  <groupId>org.clonecomputers.lab</groupId>
+  <groupId>net.clonecomputers.lab</groupId>
   <artifactId>RNAFolding</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>RNAFolding</name>
@@ -12,6 +12,8 @@
   <description>A program to calculate an optimal way to fold RNA</description>
   
   <build>
+    <sourceDirectory>src/</sourceDirectory>
+    <testSourceDirectory>test/</testSourceDirectory>
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
