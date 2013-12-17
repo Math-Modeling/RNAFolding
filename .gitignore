@@ -46,3 +46,6 @@ Icon
 # Files that might appear on external disk
 .Spotlight-V100
 .Trashes
+
+# Broken temperary / saving files created on some operating systems / programs
+*~
