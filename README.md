@@ -13,7 +13,8 @@ for a given sequence of RNA base pairs on a 2D grid, 3D grid,
 
 ####Short Term Plans:
 #####Gavin:
-* Brute force optimal RNA sequence shap
+* Brute force optimal RNA sequence shape
+
 #####Louis:
 * Display RNA sequence shape
 
