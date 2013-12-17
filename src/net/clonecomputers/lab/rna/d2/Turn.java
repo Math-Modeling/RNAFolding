@@ -1,4 +1,4 @@
-package org.clonecomputers.lab.rna.d2;
+package net.clonecomputers.lab.rna.d2;
 
 public enum Turn {
 	LEFT(-1),

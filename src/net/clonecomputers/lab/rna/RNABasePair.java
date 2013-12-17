@@ -1,4 +1,4 @@
-package org.clonecomputers.lab.rna;
+package net.clonecomputers.lab.rna;
 
 public enum RNABasePair {
 	A("U"),

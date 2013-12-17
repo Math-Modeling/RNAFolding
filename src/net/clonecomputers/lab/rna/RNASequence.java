@@ -1,6 +1,6 @@
-package org.clonecomputers.lab.rna;
+package net.clonecomputers.lab.rna;
 
-import org.clonecomputers.lab.rna.d2.*;
+import net.clonecomputers.lab.rna.d2.*;
 
 public class RNASequence {
 	private RNABasePair[] pairs;
