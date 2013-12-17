@@ -12,7 +12,7 @@ public enum Direction {
 		this.mod = new Point(x,y);
 	}
 	
-	private Point move(Point p) {
+	public Point move(Point p) {
 		return new Point(p.x + mod.x, p.y + mod.y);
 	}
 }

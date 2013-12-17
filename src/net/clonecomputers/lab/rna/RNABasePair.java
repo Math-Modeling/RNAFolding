@@ -12,7 +12,7 @@ public enum RNABasePair {
 		conjugate = RNABasePair.valueOf(conjugateName);
 	}
 	
-	private boolean bondsWith(RNABasePair pair) {
+	public boolean bondsWith(RNABasePair pair) {
 		return pair.equals(conjugate);
 	}
 }
