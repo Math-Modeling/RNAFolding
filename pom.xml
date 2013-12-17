@@ -80,8 +80,8 @@
               <goal>testCompile</goal>
             </goals>
             <configuration>
-              <source />
-              <target />
+              <source>1.6</source>
+              <target>1.6</target>
             </configuration>
           </execution>
           <execution>
@@ -91,14 +91,14 @@
               <goal>compile</goal>
             </goals>
             <configuration>
-              <source />
-              <target />
+              <source>1.6</source>
+              <target>1.6</target>
             </configuration>
           </execution>
         </executions>
         <configuration>
-          <source />
-          <target />
+          <source>1.6</source>
+          <target>1.6</target>
         </configuration>
       </plugin>
       <plugin>
