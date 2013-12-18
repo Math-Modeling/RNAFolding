@@ -8,4 +8,12 @@ public class Point {
 		this.x = x;
 		this.y = y;
 	}
+	
+	public String toString() {
+		return String.format("(%d, %d)",x,y);
+	}
+	
+	public boolean equals(Object o) {
+		return (o instanceof Point) && ((Point)o).x == x && ((Point)o).y == y;
+	}
 }
