@@ -37,7 +37,7 @@ public class RNAFolder {
 	
 	private void testSequence() {
 		int score = sequence.numberOfHBonds();
-		System.out.println(score);
+		//System.out.println(score);
 		if(score > bestScore){
 			System.out.printf("better sequence found scoring %d: %s\n",score,sequence.pathString());
 			bestScore = score;

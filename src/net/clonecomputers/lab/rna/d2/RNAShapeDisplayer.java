@@ -10,6 +10,8 @@ import net.clonecomputers.lab.rna.*;
 import net.clonecomputers.lab.rna.util.*;
 
 public class RNAShapeDisplayer extends JPanel {
+	private static final JFrame window = new JFrame("RNA");
+	
 	private final BufferedImage bondLayer;
 	private final BufferedImage basePairLayer;
 	private final RNASequence shape;
@@ -119,8 +121,8 @@ public class RNAShapeDisplayer extends JPanel {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				JFrame window = new JFrame();
 				window.setContentPane(new RNAShapeDisplayer(shape, d));
+				window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				window.pack();
 				window.setVisible(true);
 			}
