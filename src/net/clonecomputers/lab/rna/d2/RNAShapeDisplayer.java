@@ -100,7 +100,7 @@ public class RNAShapeDisplayer extends JPanel {
 	
 	private void drawHBond(Point lastPoint, Point thisPoint) {
 		Graphics g = bondLayer.getGraphics();
-		g.setColor(Color.GREEN);
+		g.setColor(Color.BLACK);
 		((Graphics2D)g).setStroke(
 				new BasicStroke(1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER,
 						10.0f, new float[]{5.0f, 5.0f}, 1));
