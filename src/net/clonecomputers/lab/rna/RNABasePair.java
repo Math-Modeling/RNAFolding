@@ -3,10 +3,11 @@ package net.clonecomputers.lab.rna;
 import java.awt.*;
 
 public enum RNABasePair {
-	A("U",new Color(1f,1f,0f)),
-	C("G",new Color(1f,.5f,0f)),
-	G("C",new Color(0f,.5f,1f)),
-	U("A",new Color(0f,1f,1f));
+	
+	A("U", new Color(0, 223, 0)),
+	C("G", Color.RED),
+	G("C", Color.BLUE),
+	U("A", Color.MAGENTA);
 	
 	private final RNABasePair conjugate;
 	private final Color color;
