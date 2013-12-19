@@ -1,6 +1,5 @@
 package net.clonecomputers.lab.rna;
 
-import java.awt.Point;
 import java.util.*;
 
 import net.clonecomputers.lab.rna.d2.*;

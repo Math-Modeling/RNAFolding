@@ -1,7 +1,5 @@
 package net.clonecomputers.lab.rna.d2;
 
-import java.awt.Point;
-
 public enum Direction {
 	NORTH(0,1,"↑"),
 	EAST(-1,0,"→"),
