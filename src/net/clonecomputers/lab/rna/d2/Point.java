@@ -16,4 +16,11 @@ public class Point {
 	public boolean equals(Object o) {
 		return (o instanceof Point) && ((Point)o).x == x && ((Point)o).y == y;
 	}
+	
+	public boolean isAdjacent(Point p) {
+		return (p.x == x+1 && p.y == y) ||
+				(p.x == x-1 && p.y == y) ||
+				(p.x == x && p.y == y+1) ||
+				(p.x == x && p.y == y-1);
+	}
 }

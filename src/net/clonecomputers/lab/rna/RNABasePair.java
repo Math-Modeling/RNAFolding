@@ -4,20 +4,22 @@ import java.awt.*;
 
 public enum RNABasePair {
 	A("U",new Color(1f,1f,0f)),
-	C("G",new Color(1f,.5f,0f)),
+	C("G",new Color(0f,1f,1f)),
 	G("C",new Color(0f,.5f,1f)),
-	U("A",new Color(0f,1f,1f));
+	U("A",new Color(1f,.5f,0f));
 	
-	private final RNABasePair conjugate;
+	//private final RNABasePair conjugate;
+	private final String conjugateName;
 	private final Color color;
 	
 	private RNABasePair(String conjugateName, Color color) {
-		conjugate = get(conjugateName);
+		//conjugate = get(conjugateName);
+		this.conjugateName = conjugateName;
 		this.color = color;
 	}
 	
 	public boolean bondsWith(RNABasePair pair) {
-		return pair.equals(conjugate);
+		return pair.name().equalsIgnoreCase(conjugateName);
 	}
 	
 	public Color getColor() {
