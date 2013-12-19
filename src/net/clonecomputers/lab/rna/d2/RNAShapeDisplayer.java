@@ -3,10 +3,12 @@ package net.clonecomputers.lab.rna.d2;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.*;
+import java.util.*;
 
 import javax.swing.*;
 
 import net.clonecomputers.lab.rna.*;
+import net.clonecomputers.lab.rna.util.*;
 
 public class RNAShapeDisplayer extends JPanel {
 	
@@ -92,7 +94,10 @@ public class RNAShapeDisplayer extends JPanel {
 	}
 	
 	private void drawHBonds() {
-		
+		Set<Pair> hBonds = shape.getHBonds();
+		for(Pair p: hBonds) {
+			drawHBond(shape.getPoint(p.a),shape.getPoint(p.b));
+		}
 	}
 	
 	private void drawHBond(Point lastPoint, Point thisPoint) {

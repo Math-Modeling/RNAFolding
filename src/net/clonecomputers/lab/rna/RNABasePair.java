@@ -9,16 +9,18 @@ public enum RNABasePair {
 	G("C", Color.BLUE),
 	U("A", Color.MAGENTA);
 	
-	private final RNABasePair conjugate;
+	//private final RNABasePair conjugate;
+	private final String conjugateName;
 	private final Color color;
 	
 	private RNABasePair(String conjugateName, Color color) {
-		conjugate = get(conjugateName);
+		//conjugate = get(conjugateName);
+		this.conjugateName = conjugateName;
 		this.color = color;
 	}
 	
 	public boolean bondsWith(RNABasePair pair) {
-		return pair.equals(conjugate);
+		return pair.name().equalsIgnoreCase(conjugateName);
 	}
 	
 	public Color getColor() {
