@@ -4,8 +4,8 @@ import java.awt.*;
 
 public enum RNABasePair {
 	A("U",new Color(1f,1f,0f),Color.BLACK),
-	C("G",new Color(0f,1f,1f),Color.BLACK),
-	G("C",new Color(0f,.5f,1f),new Color(1f,1f,.6f)),
+	C("G",new Color(0f,1f,.7f),Color.BLACK),
+	G("C",new Color(0f,.8f,1f),Color.BLACK),
 	U("A",new Color(1f,.5f,0f),Color.BLACK);
 	
 	//private final RNABasePair conjugate;
