@@ -7,8 +7,8 @@ import net.clonecomputers.lab.rna.*;
 
 public class RNAFolder {
 	private final RNASequence sequence;
-	private RNASequence bestSequence;
-	private int bestScore;
+	private RNASequence bestSequence = null;
+	private int bestScore = -1;
 	
 	public static void main(String[] args) throws IOException {
 		RNASequence sequence = new RNASequence(new BufferedReader(new InputStreamReader(System.in)).readLine());
