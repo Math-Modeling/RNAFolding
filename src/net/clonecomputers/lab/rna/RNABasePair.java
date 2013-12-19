@@ -3,27 +3,33 @@ package net.clonecomputers.lab.rna;
 import java.awt.*;
 
 public enum RNABasePair {
-	A("U",new Color(1f,1f,0f)),
-	C("G",new Color(0f,1f,1f)),
-	G("C",new Color(0f,.5f,1f)),
-	U("A",new Color(1f,.5f,0f));
+	A("U",new Color(1f,1f,0f),Color.BLACK),
+	C("G",new Color(0f,1f,1f),Color.BLACK),
+	G("C",new Color(0f,.5f,1f),new Color(1f,1f,.6f)),
+	U("A",new Color(1f,.5f,0f),Color.BLACK);
 	
 	//private final RNABasePair conjugate;
 	private final String conjugateName;
-	private final Color color;
+	private final Color backgroundColor;
+	private final Color foregroundColor;
 	
-	private RNABasePair(String conjugateName, Color color) {
+	private RNABasePair(String conjugateName, Color backgroundColor, Color foregroundColor) {
 		//conjugate = get(conjugateName);
 		this.conjugateName = conjugateName;
-		this.color = color;
+		this.backgroundColor = backgroundColor;
+		this.foregroundColor = foregroundColor;
 	}
 	
 	public boolean bondsWith(RNABasePair pair) {
 		return pair.name().equalsIgnoreCase(conjugateName);
 	}
 	
-	public Color getColor() {
-		return color;
+	public Color getBackgroundColor() {
+		return backgroundColor;
+	}
+	
+	public Color getForegroundColor() {
+		return foregroundColor;
 	}
 	
 	public String toString() {

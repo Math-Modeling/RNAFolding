@@ -114,9 +114,9 @@ public class RNAShapeDisplayer extends JPanel {
 
 	private void drawPair(RNABasePair pair, Point p) {
 		Graphics g = basePairLayer.getGraphics();
-		g.setColor(pair.getColor());
+		g.setColor(pair.getBackgroundColor());
 		g.fillOval(xgp(p.x)-5, ygp(p.y)-5, 12, 12);
-		g.setColor(Color.BLACK);
+		g.setColor(pair.getForegroundColor());
 		g.setFont(new Font("Sanserif", Font.PLAIN, 10));
 		FontMetrics metrics = g.getFontMetrics();
 		int width = metrics.charWidth(pair.toString().charAt(0));
