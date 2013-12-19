@@ -1,7 +1,6 @@
 package net.clonecomputers.lab.rna.d2;
 
 import java.awt.*;
-import java.awt.geom.Rectangle2D;
 import java.awt.image.*;
 import java.util.*;
 
@@ -11,7 +10,6 @@ import net.clonecomputers.lab.rna.*;
 import net.clonecomputers.lab.rna.util.*;
 
 public class RNAShapeDisplayer extends JPanel {
-
 	private static final JFrame window = new JFrame("RNA");
 	
 	private final BufferedImage bondLayer;
@@ -44,11 +42,11 @@ public class RNAShapeDisplayer extends JPanel {
 	}
 	
 	private void calculateBounds() {
-		GridPoint p = new GridPoint(0,0);
+		Point p = new Point(0,0);
 		Direction dir = Direction.EAST;
 		for(Turn t: shape.getPath()) {
 			dir = t.getDirection(dir);
-			p.move(dir, 1);
+			p = dir.move(p);
 			//System.out.println(p);
 			right = max(right,p.x);
 			left = min(left,p.x);
@@ -78,8 +76,8 @@ public class RNAShapeDisplayer extends JPanel {
 	}
 	
 	private void drawShape() {
-		GridPoint thisPoint = new GridPoint(0,0);
-		GridPoint lastPoint = null;
+		Point thisPoint = new Point(0,0);
+		Point lastPoint = null;
 		Direction d = Direction.EAST;
 		Turn t;
 		RNABasePair p;
@@ -89,10 +87,9 @@ public class RNAShapeDisplayer extends JPanel {
 			d = t.getDirection(d);
 			drawPair(p, thisPoint);
 			if(lastPoint != null) drawPBond(lastPoint, thisPoint);
-			lastPoint = new GridPoint(thisPoint);
-			thisPoint.move(d, 1);
+			lastPoint = thisPoint;
+			thisPoint = d.move(thisPoint);
 		}
-		//drawHBond(lastPoint, thisPoint);
 	}
 	
 	private void drawHBonds() {
@@ -102,28 +99,28 @@ public class RNAShapeDisplayer extends JPanel {
 		}
 	}
 	
-	private void drawHBond(GridPoint lastPoint, GridPoint thisPoint) {
+	private void drawHBond(Point lastPoint, Point thisPoint) {
 		Graphics2D g2 = (Graphics2D) bondLayer.getGraphics();
 		g2.setColor(Color.BLACK);
 		g2.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, new float[]{5.0f, 5.0f}, 1));
 		g2.drawLine(xgp(lastPoint.x), ygp(lastPoint.y), xgp(thisPoint.x), ygp(thisPoint.y));
 	}
 
-	private void drawPBond(GridPoint lastPoint, GridPoint thisPoint) {
+	private void drawPBond(Point lastPoint, Point thisPoint) {
 		Graphics g = bondLayer.getGraphics();
 		g.setColor(Color.BLACK);
 		g.drawLine(xgp(lastPoint.x), ygp(lastPoint.y), xgp(thisPoint.x), ygp(thisPoint.y));
 	}
 
-	private void drawPair(RNABasePair pair, GridPoint p) {
+	private void drawPair(RNABasePair pair, Point p) {
 		Graphics g = basePairLayer.getGraphics();
-		g.setColor(Color.LIGHT_GRAY);
-		g.fillOval(xgp(p.x)-5, ygp(p.y)-5, 10, 10);
 		g.setColor(pair.getColor());
+		g.fillOval(xgp(p.x)-5, ygp(p.y)-5, 12, 12);
+		g.setColor(Color.BLACK);
 		g.setFont(new Font("Sanserif", Font.PLAIN, 10));
 		FontMetrics metrics = g.getFontMetrics();
 		int width = metrics.charWidth(pair.toString().charAt(0));
-		g.drawString(pair.toString(), xgp(p.x)-width/2, ygp(p.y)+metrics.getAscent()/2);
+		g.drawString(pair.toString(), xgp(p.x)-width/2+1, ygp(p.y)+metrics.getAscent()/2+1);
 		//System.out.printf("g.drawOval(%d, %d, 10, 10);\n",xgp(p.x)-5,ygp(p.y)-5);
 	}
 

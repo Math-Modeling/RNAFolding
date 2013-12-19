@@ -6,20 +6,16 @@ public enum Direction {
 	SOUTH(0,-1,"↓"),
 	WEST(1,0,"←");
 	
-	private final GridPoint mod;
+	private final Point mod;
 	private final String dir;
 	
 	private Direction(int x, int y, String dir) {
-		this.mod = new GridPoint(x,y);
+		this.mod = new Point(x,y);
 		this.dir = dir;
 	}
 	
-	public int getModX() {
-		return mod.x;
-	}
-	
-	public int getModY() {
-		return mod.y;
+	public Point move(Point p) {
+		return new Point(p.x + mod.x, p.y + mod.y);
 	}
 	
 	public String toString() {
