@@ -68,11 +68,11 @@ public class RNAShapeDisplayer extends JPanel {
 	}
 	
 	private int xgp(int x) {
-		return (int)(((x-left+.5)/(right-left+1)) * bondLayer.getWidth());
+		return (int)(((x-left+.5)/max(right-left+1,top-bottom+1)) * bondLayer.getWidth());
 	}
 
 	private int ygp(int y) {
-		return (int)(((y-bottom+.5)/(top-bottom+1)) * -bondLayer.getHeight()) + bondLayer.getHeight();
+		return (int)(((y-bottom+.5)/max(right-left+1,top-bottom+1)) * -bondLayer.getHeight()) + bondLayer.getHeight();
 	}
 	
 	private void drawShape() {
@@ -115,12 +115,12 @@ public class RNAShapeDisplayer extends JPanel {
 	private void drawPair(RNABasePair pair, Point p) {
 		Graphics g = basePairLayer.getGraphics();
 		g.setColor(pair.getBackgroundColor());
-		g.fillOval(xgp(p.x)-5, ygp(p.y)-5, 12, 12);
+		g.fillOval(xgp(p.x)-5, ygp(p.y)-5, 14, 14);
 		g.setColor(pair.getForegroundColor());
 		g.setFont(new Font("Sanserif", Font.PLAIN, 10));
 		FontMetrics metrics = g.getFontMetrics();
 		int width = metrics.charWidth(pair.toString().charAt(0));
-		g.drawString(pair.toString(), xgp(p.x)-width/2+1, ygp(p.y)+metrics.getAscent()/2+1);
+		g.drawString(pair.toString(), xgp(p.x)-width/2+2, ygp(p.y)+metrics.getAscent()/2+1);
 		//System.out.printf("g.drawOval(%d, %d, 10, 10);\n",xgp(p.x)-5,ygp(p.y)-5);
 	}
 

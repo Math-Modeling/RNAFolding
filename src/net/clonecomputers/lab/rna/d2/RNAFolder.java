@@ -23,7 +23,8 @@ public class RNAFolder {
 	}
 	
 	public void fold() {
-		recurse(0);
+		sequence.setTurn(0, Turn.CENTER);
+		recurse(1);
 		System.out.println("done");
 	}
 	
