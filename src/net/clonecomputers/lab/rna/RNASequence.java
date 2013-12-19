@@ -1,12 +1,11 @@
 package net.clonecomputers.lab.rna;
 
-import java.awt.Point;
 import java.util.*;
 
 import net.clonecomputers.lab.rna.d2.*;
 import net.clonecomputers.lab.rna.util.*;
 
-public class RNASequence implements Iterable<Point> {
+public class RNASequence implements Iterable<GridPoint> {
 	private RNABasePair[] pairs;
 	private Turn[] path;
 	
@@ -69,25 +68,25 @@ public class RNASequence implements Iterable<Point> {
 	public Turn[] getValidTurns(int position) {
 		Set<Turn> turns = new HashSet<Turn>(Arrays.asList(Turn.values()));
 		Set<Turn> badTurns = new HashSet<Turn>();
-		Point p = getPoint(position);
+		GridPoint p = getPoint(position);
 		Direction initialDir = getDir(position);
 		int i = 0;
-		for(Point testPoint: this) {
+		for(GridPoint testPoint: this) {
 			if(i++ > position) break;
 			for(Turn t: turns){
-				if(testPoint.equals(t.getDirection(initialDir).move(p))) badTurns.add(t);
+				if(p.isAdjacent(testPoint, t.getDirection(initialDir))) badTurns.add(t);
 			}
 			turns.removeAll(badTurns);
 		}
 		return turns.toArray(new Turn[0]);
 	}
 	
-	public Point getPoint(int position) {
-		Point p = new Point(0,0);
+	public GridPoint getPoint(int position) {
+		GridPoint p = new GridPoint(0,0);
 		Direction dir = Direction.EAST;
 		for(int i = 0; i < position; i++) {
 			dir = path[i].getDirection(dir);
-			p = dir.move(p);
+			p.move(dir, 1);
 		}
 		return p;
 	}
@@ -100,23 +99,23 @@ public class RNASequence implements Iterable<Point> {
 		return dir;
 	}
 	
-	public Iterator<Point> iterator(){
+	public Iterator<GridPoint> iterator(){
 		return new Iter();
 	}
 	
-	public Iterable<Point> iterable(Iterator<Point> i) {
+	public Iterable<GridPoint> iterable(Iterator<GridPoint> i) {
 		if(!(i instanceof Iter)) return null;
 		return new Iter((Iter)i);
 	}
 	
-	private class Iter implements Iterator<Point>, Iterable<Point> {
-		private Point p;
+	private class Iter implements Iterator<GridPoint>, Iterable<GridPoint> {
+		private GridPoint p;
 		private Direction dir;
 		int i;
 		
 		public Iter() {
 			i = 0;
-			p = new Point(0,0);
+			p = new GridPoint(0,0);
 			dir = Direction.EAST;
 		}
 		
@@ -127,7 +126,7 @@ public class RNASequence implements Iterable<Point> {
 		}
 		
 		@Override
-		public Iterator<Point> iterator() {
+		public Iterator<GridPoint> iterator() {
 			return this;
 		}
 		
@@ -137,11 +136,11 @@ public class RNASequence implements Iterable<Point> {
 		}
 		
 		@Override
-		public Point next() {
-			Point ret = p;
+		public GridPoint next() {
+			GridPoint ret = p;
 			if(hasNext()){
 				dir = path[i++].getDirection(dir);
-				p = dir.move(p);
+				p.move(dir, 1);
 			}
 			return ret;
 		}
@@ -217,11 +216,11 @@ public class RNASequence implements Iterable<Point> {
 		Set<Pair> hBonds = new HashSet<Pair>();
 		Set<Integer> usedPoints = new HashSet<Integer>();
 		int i = 0;
-		for(Iterator<Point> iter = this.iterator(); iter.hasNext();) {
-			Point p = iter.next();
+		for(Iterator<GridPoint> iter = this.iterator(); iter.hasNext();) {
+			GridPoint p = iter.next();
 			RNABasePair pair = this.getPair(i++);
 			int j = i; // intentionally one more
-			for(Point p2: iterable(iter)) {
+			for(GridPoint p2: iterable(iter)) {
 				RNABasePair pair2 = this.getPair(j++);
 				//System.out.printf("%d,%d:%s%s\n",i-1,j-1,pair,pair2);
 				if(		j - i > 2 &&

@@ -44,11 +44,11 @@ public class RNAShapeDisplayer extends JPanel {
 	}
 	
 	private void calculateBounds() {
-		Point p = new Point(0,0);
+		GridPoint p = new GridPoint(0,0);
 		Direction dir = Direction.EAST;
 		for(Turn t: shape.getPath()) {
 			dir = t.getDirection(dir);
-			p = dir.move(p);
+			p.move(dir, 1);
 			//System.out.println(p);
 			right = max(right,p.x);
 			left = min(left,p.x);
@@ -78,8 +78,8 @@ public class RNAShapeDisplayer extends JPanel {
 	}
 	
 	private void drawShape() {
-		Point thisPoint = new Point(0,0);
-		Point lastPoint = null;
+		GridPoint thisPoint = new GridPoint(0,0);
+		GridPoint lastPoint = null;
 		Direction d = Direction.EAST;
 		Turn t;
 		RNABasePair p;
@@ -89,8 +89,8 @@ public class RNAShapeDisplayer extends JPanel {
 			d = t.getDirection(d);
 			drawPair(p, thisPoint);
 			if(lastPoint != null) drawPBond(lastPoint, thisPoint);
-			lastPoint = thisPoint;
-			thisPoint = d.move(thisPoint);
+			lastPoint = new GridPoint(thisPoint);
+			thisPoint.move(d, 1);
 		}
 		//drawHBond(lastPoint, thisPoint);
 	}
@@ -102,20 +102,20 @@ public class RNAShapeDisplayer extends JPanel {
 		}
 	}
 	
-	private void drawHBond(Point lastPoint, Point thisPoint) {
+	private void drawHBond(GridPoint lastPoint, GridPoint thisPoint) {
 		Graphics2D g2 = (Graphics2D) bondLayer.getGraphics();
 		g2.setColor(Color.BLACK);
 		g2.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, new float[]{5.0f, 5.0f}, 1));
 		g2.drawLine(xgp(lastPoint.x), ygp(lastPoint.y), xgp(thisPoint.x), ygp(thisPoint.y));
 	}
 
-	private void drawPBond(Point lastPoint, Point thisPoint) {
+	private void drawPBond(GridPoint lastPoint, GridPoint thisPoint) {
 		Graphics g = bondLayer.getGraphics();
 		g.setColor(Color.BLACK);
 		g.drawLine(xgp(lastPoint.x), ygp(lastPoint.y), xgp(thisPoint.x), ygp(thisPoint.y));
 	}
 
-	private void drawPair(RNABasePair pair, Point p) {
+	private void drawPair(RNABasePair pair, GridPoint p) {
 		Graphics g = basePairLayer.getGraphics();
 		g.setColor(Color.LIGHT_GRAY);
 		g.fillOval(xgp(p.x)-5, ygp(p.y)-5, 10, 10);
