@@ -3,6 +3,8 @@ package net.clonecomputers.lab.rna.d2;
 import java.awt.*;
 import java.io.*;
 
+import javax.swing.*;
+
 import net.clonecomputers.lab.rna.*;
 
 public class RNAFolder {
@@ -11,7 +13,8 @@ public class RNAFolder {
 	private int bestScore = -1;
 	
 	public static void main(String[] args) throws IOException {
-		RNASequence sequence = new RNASequence(new BufferedReader(new InputStreamReader(System.in)).readLine());
+		RNASequence sequence = new RNASequence(JOptionPane.showInputDialog("Input an RNA string")
+				.toUpperCase().replace('T', 'U')); // allow DNA strings too
 		new RNAFolder(sequence).fold();
 	}
 	
@@ -37,7 +40,7 @@ public class RNAFolder {
 	
 	private void testSequence() {
 		int score = sequence.numberOfHBonds();
-		System.out.println(score);
+		//System.out.println(score);
 		if(score > bestScore){
 			System.out.printf("better sequence found scoring %d: %s\n",score,sequence.pathString());
 			bestScore = score;

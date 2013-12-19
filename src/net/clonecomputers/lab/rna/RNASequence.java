@@ -223,7 +223,7 @@ public class RNASequence implements Iterable<Point> {
 			int j = i; // intentionally one more
 			for(Point p2: iterable(iter)) {
 				RNABasePair pair2 = this.getPair(j++);
-				System.out.printf("%d,%d:%s%s\n",i-1,j-1,pair,pair2);
+				//System.out.printf("%d,%d:%s%s\n",i-1,j-1,pair,pair2);
 				if(		j - i > 2 &&
 						pair.bondsWith(pair2) &&
 						!usedPoints.contains(i-1) &&
