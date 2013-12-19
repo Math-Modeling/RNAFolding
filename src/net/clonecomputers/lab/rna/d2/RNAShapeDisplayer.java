@@ -101,6 +101,9 @@ public class RNAShapeDisplayer extends JPanel {
 	private void drawHBond(Point lastPoint, Point thisPoint) {
 		Graphics g = bondLayer.getGraphics();
 		g.setColor(Color.GREEN);
+		((Graphics2D)g).setStroke(
+				new BasicStroke(1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER,
+						10.0f, new float[]{5.0f, 5.0f}, 1));
 		g.drawLine(xgp(lastPoint.x), ygp(lastPoint.y), xgp(thisPoint.x), ygp(thisPoint.y));
 	}
 
@@ -113,7 +116,12 @@ public class RNAShapeDisplayer extends JPanel {
 	private void drawPair(RNABasePair pair, Point p) {
 		Graphics g = basePairLayer.getGraphics();
 		g.setColor(pair.getColor());
-		g.fillOval(xgp(p.x)-5, ygp(p.y)-5, 10, 10);
+		g.fillOval(xgp(p.x)-5, ygp(p.y)-5, 12, 12);
+		g.setColor(Color.BLACK);
+		g.setFont(new Font("Sanserif", Font.PLAIN, 10));
+		FontMetrics metrics = g.getFontMetrics();
+		int width = metrics.charWidth(pair.toString().charAt(0));
+		g.drawString(pair.toString(), xgp(p.x)-width/2+1, ygp(p.y)+metrics.getAscent()/2+1);
 		//System.out.printf("g.drawOval(%d, %d, 10, 10);\n",xgp(p.x)-5,ygp(p.y)-5);
 	}
 
