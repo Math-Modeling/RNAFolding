@@ -18,9 +18,9 @@ public class Point {
 	}
 	
 	public boolean isAdjacent(Point p) {
-		return (p.x == x+1 && p.y == y) ||
-				(p.x == x-1 && p.y == y) ||
-				(p.x == x && p.y == y+1) ||
-				(p.x == x && p.y == y-1);
+		for(Direction d: Direction.values()){
+			if(this.equals(d.move(p))) return true;
+		}
+		return false;
 	}
 }
