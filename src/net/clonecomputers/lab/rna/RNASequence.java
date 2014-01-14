@@ -66,7 +66,7 @@ public class RNASequence implements Iterable<Point> {
 	}
 	
 	public Turn[] getValidTurns(int position) {
-		Set<Turn> turns = new HashSet<Turn>(Arrays.asList(Turn.values()));
+		Set<Turn> turns = new TreeSet<Turn>(Arrays.asList(Turn.values()));
 		Set<Turn> badTurns = new HashSet<Turn>();
 		Point p = getPoint(position);
 		Direction initialDir = getDir(position);
