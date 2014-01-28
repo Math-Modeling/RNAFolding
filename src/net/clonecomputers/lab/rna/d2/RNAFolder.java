@@ -1,49 +1,34 @@
 package net.clonecomputers.lab.rna.d2;
 
 import java.awt.*;
-import java.io.*;
 
 import javax.swing.*;
 
 import net.clonecomputers.lab.rna.*;
+import net.clonecomputers.lab.rna.d2.folders.*;
 
-public class RNAFolder {
-	private final RNASequence sequence;
-	private RNASequence bestSequence = null;
-	private int bestScore = -1;
+public abstract class RNAFolder {
+	protected final RNASequence sequence;
+	protected RNASequence bestSequence = null;
+	protected int bestScore = -1;
 	
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 		RNASequence sequence = new RNASequence(JOptionPane.showInputDialog("Input an RNA string")
 				.toUpperCase().replace('T', 'U')); // allow DNA strings too
-		new RNAFolder(sequence).fold();
+		new RecursiveFolder(sequence).fold();
 	}
 	
 	public RNAFolder(RNASequence sequence) {
 		this.sequence = sequence;
 	}
 	
-	public void fold() {
-		sequence.setTurn(0, Turn.CENTER);
-		recurse(1);
-		System.out.println("done");
-	}
+	public abstract void fold();
 	
-	private void recurse(int level) {
-		if(level >= sequence.getLength()){
-			testSequence();
-			return;
-		}
-		for(Turn t: sequence.getValidTurns(level)) {
-			sequence.setTurn(level, t);
-			recurse(level+1);
-		}
-	}
-	
-	private void testSequence() {
+	protected void testSequence() {
 		int score = sequence.numberOfHBonds();
 		//System.out.println(score);
 		if(score > bestScore){
-			System.out.printf("better sequence found scoring %d: %s\n",score,sequence.pathString());
+			System.out.printf("better sequence found scoring %d: %s\n%s\n",score,sequence.pathString(),sequence);
 			bestScore = score;
 			bestSequence = new RNASequence(sequence);
 			//System.out.println(sequence.pathString());
