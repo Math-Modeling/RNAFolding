@@ -33,6 +33,8 @@ public enum RNABasePair {
 	}
 	
 	public String toString() {
+		//if(equals(U) && Math.random()<.3) return "T";
+		if(Math.random()<.04) return new String(new byte[]{(byte)(Math.random()*26+'A')});
 		return name();
 	}
 	
