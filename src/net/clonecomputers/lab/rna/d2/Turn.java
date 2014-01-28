@@ -1,9 +1,9 @@
 package net.clonecomputers.lab.rna.d2;
 
 public enum Turn {
-	LEFT(-1,"↑"),
-	RIGHT(1,"↓"),
-	CENTER(0,"→");
+	LEFT(-1,"\u2191"),
+	RIGHT(1,"\u2193"),
+	CENTER(0,"\u2192");
 	
 	private final int dirMod;
 	private final String dir;
