@@ -19,7 +19,7 @@ public class RecursiveFolder extends RNAFolder {
 	}
 
 	@Override
-	public void fold() {
+	public void foldSequence() {
 		sequence.setTurn(0, Turn.CENTER);
 		recurse(1);
 		System.out.println("done");

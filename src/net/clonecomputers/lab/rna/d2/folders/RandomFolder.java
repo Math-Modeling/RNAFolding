@@ -20,7 +20,7 @@ public class RandomFolder extends RNAFolder {
 	}
 
 	@Override
-	public void fold() {
+	public void foldSequence() {
 		Random r = new Random();
 		outer:
 		while(true) {

@@ -10,10 +10,10 @@ import net.clonecomputers.lab.rna.*;
 import net.clonecomputers.lab.rna.util.*;
 
 public class RNAShapeDisplayer extends JPanel {
-	private static final JFrame window = new JFrame("RNA");
 	
 	private final BufferedImage bondLayer;
 	private final BufferedImage basePairLayer;
+	private final BufferedImage textLayer;
 	private final RNASequence shape;
 	
 	private int top = 0;
@@ -24,14 +24,24 @@ public class RNAShapeDisplayer extends JPanel {
 	private RNAShapeDisplayer(RNASequence shape, Dimension d) {
 		bondLayer = new BufferedImage(d.width, d.height, BufferedImage.TYPE_INT_ARGB);
 		basePairLayer = new BufferedImage(d.width, d.height, BufferedImage.TYPE_INT_ARGB);
+		textLayer = new BufferedImage(d.width, d.height, BufferedImage.TYPE_INT_ARGB);
 		this.shape = shape;
 		this.setPreferredSize(d);
 		calculateBounds();
 		drawShape();
 		drawHBonds();
+		drawInfoText();
 		repaint();
 	}
 	
+	private void drawInfoText() {
+		Graphics2D g2 = (Graphics2D)textLayer.getGraphics();
+		g2.setColor(Color.BLACK);
+		g2.setFont(new Font("Helvetica",Font.PLAIN,18));
+		String numHBonds = Integer.toString(shape.getHBonds().size());
+		g2.drawString(numHBonds, 0, g2.getFontMetrics().getLineMetrics(numHBonds, g2).getAscent());
+	}
+
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -39,6 +49,7 @@ public class RNAShapeDisplayer extends JPanel {
 		g.fillRect(0, 0, this.getWidth(), this.getHeight());
 		g.drawImage(bondLayer, 0, 0, this);
 		g.drawImage(basePairLayer, 0, 0, this);
+		g.drawImage(textLayer, 0, 0, this);
 	}
 	
 	private void calculateBounds() {
@@ -126,7 +137,7 @@ public class RNAShapeDisplayer extends JPanel {
 		//System.out.printf("g.drawOval(%d, %d, 10, 10);\n",xgp(p.x)-5,ygp(p.y)-5);
 	}
 
-	public static void displayRNAShape(final RNASequence shape, final Dimension d) {
+	public static void displayRNAShape(final JFrame window, final RNASequence shape, final Dimension d) {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
@@ -152,6 +163,6 @@ public class RNAShapeDisplayer extends JPanel {
 			seq.setTurn(i, turns[(int)(Math.random()*turns.length)]);
 		}
 		System.out.println(seq);
-		RNAShapeDisplayer.displayRNAShape(seq, new Dimension(600, 600));
+		RNAShapeDisplayer.displayRNAShape(new JFrame("RNA"), seq, new Dimension(600, 600));
 	}
 }
