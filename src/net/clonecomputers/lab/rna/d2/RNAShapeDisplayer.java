@@ -34,6 +34,16 @@ public class RNAShapeDisplayer extends JPanel {
 		repaint();
 	}
 	
+	public void updateTextLayer(int score, int nTimes) {
+		textLayer.getAlphaRaster().setPixels(0, 0, textLayer.getWidth(), textLayer.getHeight(), 
+				new int[textLayer.getWidth() * textLayer.getHeight()]); // blank
+		Graphics2D g2 = (Graphics2D)textLayer.getGraphics();
+		g2.setColor(Color.BLACK);
+		g2.setFont(new Font("Helvetica",Font.PLAIN,18));
+		String text = String.format("%dx%d",score,nTimes);
+		g2.drawString(text, 0, g2.getFontMetrics().getLineMetrics(text, g2).getAscent());
+	}
+	
 	private void drawInfoText() {
 		Graphics2D g2 = (Graphics2D)textLayer.getGraphics();
 		g2.setColor(Color.BLACK);
@@ -137,16 +147,18 @@ public class RNAShapeDisplayer extends JPanel {
 		//System.out.printf("g.drawOval(%d, %d, 10, 10);\n",xgp(p.x)-5,ygp(p.y)-5);
 	}
 
-	public static void displayRNAShape(final JFrame window, final RNASequence shape, final Dimension d) {
+	public static RNAShapeDisplayer displayRNAShape(final JFrame window, final RNASequence shape, final Dimension d) {
+		final RNAShapeDisplayer r = new RNAShapeDisplayer(shape, d);
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				window.setContentPane(new RNAShapeDisplayer(shape, d));
+				window.setContentPane(r);
 				window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				window.pack();
 				window.setVisible(true);
 			}
 		});
+		return r;
 	}
 	
 	public static void main(String[] args) {

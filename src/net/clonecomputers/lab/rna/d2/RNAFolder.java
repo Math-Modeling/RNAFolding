@@ -13,6 +13,8 @@ public abstract class RNAFolder {
 	protected final RNASequence sequence;
 	protected RNASequence bestSequence = null;
 	protected int bestScore = -1;
+	protected int numTimes = 0;
+	private RNAShapeDisplayer curentDisplay;
 	private long startTime;
 	
 	public static void main(String[] args) {
@@ -90,13 +92,18 @@ public abstract class RNAFolder {
 	protected void testSequence() {
 		int score = sequence.numberOfHBonds();
 		//System.out.println(score);
+		if(score == bestScore) {
+			numTimes++;
+			curentDisplay.updateTextLayer(score, numTimes);
+		}
 		if(score > bestScore){
+			numTimes = 1;
 			System.out.printf("%s found new score %d:\t%s\t(time = %d)\n",
 					this.getClass().getSimpleName(),score,sequence.pathString(), System.currentTimeMillis()-startTime);
 			bestScore = score;
 			bestSequence = new RNASequence(sequence);
 			//System.out.println(sequence.pathString());
-			RNAShapeDisplayer.displayRNAShape(window, new RNASequence(sequence), new Dimension(600,600));
+			curentDisplay = RNAShapeDisplayer.displayRNAShape(window, new RNASequence(sequence), new Dimension(600,600));
 		}
 	}
 	
